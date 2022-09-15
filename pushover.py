@@ -133,7 +133,7 @@ class MessageRequest(Request):
         self.parameters = {"expired": "expires_at",
                            "called_back": "called_back_at",
                            "acknowledged": "acknowledged_at"}
-        for param, when in self.parameters.iteritems():
+        for param, when in self.parameters.items():
             setattr(self, param, False)
             setattr(self, when, 0)
 
@@ -161,7 +161,7 @@ class MessageRequest(Request):
         if (self.receipt and not any(getattr(self, parameter)
                                      for parameter in self.parameters)):
             request = Request("get", RECEIPT_URL + self.receipt + ".json", {})
-            for param, when in self.parameters.iteritems():
+            for param, when in self.parameters.items():
                 setattr(self, param, bool(request.answer[param]))
                 setattr(self, when, request.answer[when])
             for param in ["last_delivered_at", "acknowledged_by",
@@ -256,7 +256,7 @@ class Client:
         if self.device:
             payload["device"] = self.device
 
-        for key, value in kwords.iteritems():
+        for key, value in kwords.items():
             if key not in valid_keywords:
                 raise ValueError("{0}: invalid message parameter".format(key))
 
@@ -292,7 +292,7 @@ class Client:
         if self.device:
             payload["device"] = self.device
 
-        for key, value in kwords.iteritems():
+        for key, value in kwords.items():
             if key not in valid_keywords:
                 raise ValueError("{0}: invalid message parameter".format(key))
             payload[key] = value
